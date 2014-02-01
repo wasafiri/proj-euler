@@ -1,0 +1,19 @@
+def is_prime? x
+  maxN = Math.sqrt(x)
+  2.upto(maxN) do |y|   
+    if ( x % y == 0 )   
+      return false      
+    end
+  end
+  true
+end
+
+x, n, counter = 10001, 3, 1
+
+while true
+  counter += 1 if is_prime? n
+  break if counter == x
+  n += 2
+end
+
+puts "The answer is #{n}."
