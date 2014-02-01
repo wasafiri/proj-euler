@@ -1,0 +1,10 @@
+require 'mathn'
+
+max = 2_000_000
+sum = 0
+
+Prime.each do |x|
+  break if x >= max
+  sum+=x
+end
+puts sum
