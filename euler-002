@@ -1,0 +1,8 @@
+def fibonacci_sequence n
+    curr_num, next_num, sum = 1,2,0
+    while next_num < n
+      sum += next_num if next_num.even?
+      curr_num, next_num = next_num, curr_num + next_num
+    end
+    puts sum
+end
