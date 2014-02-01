@@ -1,0 +1,15 @@
+def looped_palindrome(num1,num2=num1)
+  product = 0
+  while num1 > 101
+    product = num1 * num2
+    return product if product.to_s == product.to_s.reverse
+    if num2 > 101
+      num2 -= 1
+    else
+      num1 -= 1
+      num2 = num1
+    end
+  end
+end
+
+puts looped_palindrome(999)
