@@ -1,0 +1,11 @@
+y = []
+(1..100).collect { |x|  y << x * x }
+z = y.reduce(:+)
+puts 'the square of the first ten natural numbers is ' + z.to_s
+
+a = (1..100).reduce(:+)
+b = a * a
+puts 'the square of the sum is ' + b.to_s
+c = b - z
+puts 'the difference between the sum of the squares of the first hundred natural numbers and'
+puts 'and the square of the sum is ' + c.to_s
