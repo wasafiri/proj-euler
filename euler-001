@@ -1,0 +1,7 @@
+def crazy_nums n
+  y = 0
+  (1..n-1).each { |num| y += num if (num%3 == 0 || num%5 == 0) && (num%3 != 0 || num%5 != 0) }
+    puts y.to_s
+  end
+
+crazy_nums(1000)
