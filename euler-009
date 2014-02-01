@@ -1,0 +1,19 @@
+solve_for = 1000
+n = solve_for/40
+
+(1..n).map do |n|
+(2..n).map do |m|
+
+    a = (n*n) - (m*m)
+
+    b = (2 * n * m)
+
+    hypotenuse = (n*n) + (m*m)
+
+    sum_of_sides = a + b + hypotenuse
+
+   if a**2 + b**2 == hypotenuse**2 && sum_of_sides == solve_for && m<n
+     puts 'The answer is: a = #{a}, b = #{b}, hypotenuse = #{hypotenuse}, adding up to #{sum_of_sides}'
+   end
+  end
+end
