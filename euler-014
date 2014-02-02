@@ -1,0 +1,26 @@
+def collatz_calculate n
+  if n.even?
+    return n/2
+  elsif n.odd?
+    return (3 * n) + 1
+  end
+end
+
+
+def collatz n
+  highest_count = 0
+  number = 0
+  (1..n).each do |x|
+  collatz_array = [x]
+  until collatz_array.last == 1
+    collatz_array << collatz_calculate(collatz_array.last)
+  end
+  if collatz_array.count > highest_count
+    highest_count = collatz_array.count
+    number = x
+  end
+  end
+  puts "#{number} produced the longest string with #{highest_count} integers"
+end
+
+collatz 999_999
