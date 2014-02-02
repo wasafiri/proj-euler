@@ -1,0 +1,1 @@
+sum = 2 ** 1000; puts sum.to_s.chars.map(&:to_i).reduce(:+)
