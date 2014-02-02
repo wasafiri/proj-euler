@@ -1,0 +1,133 @@
+@number_conversions = { 90 => "ninety",
+80 => "eighty",
+70 => "seventy",
+60 => "sixty",
+50 => "fifty",
+40 => "forty",
+30 => "thirty",
+20 => "twenty",
+19 => "nineteen",
+18 => "eighteen",
+17 => "seventeen",
+16 => "sixteen",
+15 => "fifteen",
+14 => "fourteen",
+13 => "thirteen",
+12 => "twelve",
+11 => "eleven",
+10 => "ten",
+9 => "nine",
+8 => "eight",
+7 => "seven",
+6 => "six",
+5 => "five",
+4 => "four",
+3 => "three",
+2 => "two",
+1 => "one" }
+
+def humanize number
+
+  humanized_number_array = []
+
+  if number < 1000
+    remainder_from_thousands = number
+  elsif number == 1000
+    humanized_number_array << "one thousand"
+    remainder_from_thousands = 0
+  elsif number % 1000 == 0
+    thousands = number / 1000
+    humanized_number_array << @number_conversions[thousands] << "thousand"
+    remainder_from_thousands = 0
+    remainder_from_hundreds = 0
+  elsif number % 1000 != 0
+    thousands = number / 1000
+    humanized_number_array << @number_conversions[thousands] << "thousand"
+    remainder_from_thousands = number % 1000
+  end
+
+  if number < 100
+    remainder_from_hundreds = number
+  elsif remainder_from_thousands < 100
+    remainder_from_hundreds = remainder_from_thousands
+      if remainder_from_hundreds != 0
+        humanized_number_array << "and"
+      end
+  elsif number == 100
+    humanized_number_array << "one hundred"
+    remainder_from_hundreds = 0
+  elsif remainder_from_thousands % 100 == 0
+    hundreds = remainder_from_thousands / 100
+    humanized_number_array << @number_conversions[hundreds] << "hundred"
+    remainder_from_hundreds = 0
+    leftovers = 0
+  elsif remainder_from_thousands % 100 != 0
+    hundreds = remainder_from_thousands / 100
+    if hundreds != 0
+      humanized_number_array << @number_conversions[hundreds] << "hundred" << "and"
+      remainder_from_hundreds = number % 100
+    end
+  end
+
+  if remainder_from_hundreds < 10
+    leftovers = remainder_from_hundreds
+  elsif remainder_from_hundreds.between?(90, 99)
+    humanized_number_array << @number_conversions[90]
+    leftovers = remainder_from_hundreds - 90
+  elsif remainder_from_hundreds.between?(80, 89)
+    humanized_number_array << @number_conversions[80]
+    leftovers = remainder_from_hundreds - 80
+  elsif remainder_from_hundreds.between?(70, 79)
+    humanized_number_array << @number_conversions[70]
+    leftovers = remainder_from_hundreds - 70
+  elsif remainder_from_hundreds.between?(60, 69)
+    humanized_number_array << @number_conversions[60]
+    leftovers = remainder_from_hundreds - 60
+  elsif remainder_from_hundreds.between?(50, 59)
+    humanized_number_array << @number_conversions[50]
+    leftovers = remainder_from_hundreds - 50
+  elsif remainder_from_hundreds.between?(40, 49)
+    humanized_number_array << @number_conversions[40]
+    leftovers = remainder_from_hundreds - 40
+  elsif remainder_from_hundreds.between?(30, 39)
+    humanized_number_array << @number_conversions[30]
+    leftovers = remainder_from_hundreds - 30
+  elsif remainder_from_hundreds.between?(20, 29)
+    humanized_number_array << @number_conversions[20]
+    leftovers = remainder_from_hundreds - 20
+  elsif remainder_from_hundreds == 19
+    humanized_number_array << @number_conversions[19]
+  elsif remainder_from_hundreds == 18
+    humanized_number_array << @number_conversions[18]
+  elsif remainder_from_hundreds == 17
+    humanized_number_array << @number_conversions[17]
+  elsif remainder_from_hundreds == 16
+    humanized_number_array << @number_conversions[16]
+  elsif remainder_from_hundreds == 15
+    humanized_number_array << @number_conversions[15]
+  elsif remainder_from_hundreds == 14
+    humanized_number_array << @number_conversions[14]
+  elsif remainder_from_hundreds == 13
+    humanized_number_array << @number_conversions[13]
+  elsif remainder_from_hundreds == 12
+    humanized_number_array << @number_conversions[12]
+  elsif remainder_from_hundreds == 11
+    humanized_number_array << @number_conversions[11]
+  elsif remainder_from_hundreds == 10
+    humanized_number_array << @number_conversions[10]
+  end
+
+  humanized_number_array << @number_conversions[leftovers]
+
+  return humanized_number_array.join('').to_s
+
+end
+
+spelling_out_one_to_one_thousand_inclusive = []
+
+(1..1000).each do |n|
+  result_for_n = humanize n
+  spelling_out_one_to_one_thousand_inclusive << result_for_n
+end
+
+puts "the character count is #{spelling_out_one_to_one_thousand_inclusive.join('').to_s.chars.map.count}"
