@@ -1,0 +1,17 @@
+row_cache = []
+
+triangle = IO.read("triangle.txt").split("\n").each do |row|
+  row_cache << row.split.map(&:to_i)
+end
+
+rows_count = (row_cache.length - 2)
+
+rows_count.downto(0) do |row_number|
+  row_cache[row_number].length.times do |row_order|
+    left = row_cache[row_number+1][row_order]
+    right = row_cache[row_number+1][row_order+1]
+    row_cache[row_number][row_order] += [left, right].max
+  end
+end
+
+puts row_cache.first
