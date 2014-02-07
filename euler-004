@@ -13,5 +13,4 @@ def looped_palindrome(num1,num2=num1)
   largest_palindrome.max
 end
 
-s = Time.new
 puts looped_palindrome(999)
