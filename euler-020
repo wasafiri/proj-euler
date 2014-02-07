@@ -1,0 +1,6 @@
+def factorial_digit_sum nbr
+  factorial = ((1..nbr).reduce(:*))
+  factorial.to_s.scan(/\d/).map(&:to_i).reduce(:+)
+end
+
+puts factorial_digit_sum 100
