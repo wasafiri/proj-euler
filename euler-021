@@ -1,14 +1,14 @@
 def divisors_of n
   return 1 if n == 1
   amicable_nums = []
-  (1..(n-1)).each do |possible_factors|
+  (1..(n/2)).each do |possible_factors|
     amicable_nums << possible_factors if (n % possible_factors).zero?
     end
   amicable_nums.reduce(:+)
 end
 
 amicable_nums = []
-1.upto(9999) do |number|
+(1..9999).each do |number|
   factorial_sum = divisors_of number
   reverse_factorial_sum = divisors_of factorial_sum
   amicable_nums << number if (reverse_factorial_sum != factorial_sum) && (reverse_factorial_sum == number)
@@ -16,4 +16,4 @@ end
 
 puts "the answer is #{amicable_nums.reduce(:+)}"
 
-#ran in 6.4s
+#ran in 3.14s
