@@ -1,13 +1,13 @@
 require 'prime'
 
-divisors = 0
-n = 2
+num_of_divisors = 0
+nth_triangle_num = 2
 
-while divisors < 500
-  triangle_number = (n*(n+1))/2
+while num_of_divisors < 500
+  triangle_number = (nth_triangle_num*(nth_triangle_num+1))/2
   prime_factors = triangle_number.prime_division
-  divisors = prime_factors.map{|aa| aa[1]+1}.flatten.reduce(:*)
-  n += 1
+  num_of_divisors = prime_factors.map{|a| a[1]+1}.reduce(:*)
+  nth_triangle_num += 1
 end
 
 puts "triangle number is #{triangle_number}"
