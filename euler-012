@@ -1,0 +1,15 @@
+require 'prime'
+
+divisors = 0
+n = 2
+
+while divisors < 500
+  triangle_number = (n*(n+1))/2
+  prime_factors = triangle_number.prime_division
+  divisors = prime_factors.map{|aa| aa[1]+1}.flatten.reduce(:*)
+  n += 1
+end
+
+puts "triangle number is #{triangle_number}"
+
+#ran in 0.7s
