@@ -1,15 +1,23 @@
 require 'prime'
 
-num_of_divisors = 0
-nth_triangle_num = 2
+triangle_number_index = 1
+loop do
+  # Calculate the nth triangle number
+  triangle_number = (triangle_number_index * (triangle_number_index + 1)) / 2
 
-while num_of_divisors < 500
-  triangle_number = (nth_triangle_num*(nth_triangle_num+1))/2
+  # Get the prime factorization of the triangle number
   prime_factors = triangle_number.prime_division
-  num_of_divisors = prime_factors.map{|a| a[1]+1}.reduce(:*)
-  nth_triangle_num += 1
+
+  # Calculate the number of divisors
+  # For each prime factor p^a, it contributes (a+1) to the divisor count
+  # The total divisor count is the product of these contributions
+  divisor_count = prime_factors.map { |base, power| power + 1 }.reduce(:*)
+  
+  if divisor_count > 500
+    puts "First triangle number with over 500 divisors: #{triangle_number}"
+    puts "This is triangle number ##{triangle_number_index}"
+    break
+  end
+  
+  triangle_number_index += 1
 end
-
-puts "triangle number is #{triangle_number}"
-
-#ran in 0.7s
