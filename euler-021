@@ -1,19 +1,33 @@
-def divisors_of n
-  return 1 if n == 1
-  amicable_nums = []
-  (1..(n/2)).each do |possible_factors|
-    amicable_nums << possible_factors if (n % possible_factors).zero?
+def sum_of_proper_divisors(number)
+  return 0 if number == 1
+  
+  divisor_sum = 1  # 1 is always a proper divisor
+  (2..Math.sqrt(number)).each do |potential_divisor|
+    if number % potential_divisor == 0
+      divisor_sum += potential_divisor
+      divisor_sum += number / potential_divisor unless potential_divisor == Math.sqrt(number)
     end
-  amicable_nums.reduce(:+)
+  end
+  
+  divisor_sum
 end
 
-amicable_nums = []
+def are_amicable?(a, b)
+  sum_of_proper_divisors(a) == b && sum_of_proper_divisors(b) == a && a != b
+end
+
+amicable_numbers = []
+
 (1..9999).each do |number|
-  factorial_sum = divisors_of number
-  reverse_factorial_sum = divisors_of factorial_sum
-  amicable_nums << number if (reverse_factorial_sum != factorial_sum) && (reverse_factorial_sum == number)
+  potential_amicable_partner = sum_of_proper_divisors(number)
+  
+  if are_amicable?(number, potential_amicable_partner)
+    amicable_numbers << number
+  end
 end
 
-puts "the answer is #{amicable_nums.reduce(:+)}"
+sum_of_amicable_numbers = amicable_numbers.sum
+
+puts "The sum of all amicable numbers under 10000 is #{sum_of_amicable_numbers}"
 
 #ran in 3.14s
