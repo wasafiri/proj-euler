@@ -1,17 +1,22 @@
-row_cache = []
-
-triangle = IO.read("triangle.txt").split("\n").each do |row|
-  row_cache << row.split.map(&:to_i)
+# Read the triangle from the file and convert it to a 2D array of integers
+triangle = File.readlines("triangle.txt").map do |line|
+  line.split.map(&:to_i)
 end
 
-rows_count = (row_cache.length - 2)
+# Start from the second-to-last row and move upwards
+(triangle.length - 2).downto(0) do |current_row|
+  triangle[current_row].each_with_index do |value, index|
+    # Find the maximum of the two adjacent numbers in the row below
+    left_path = triangle[current_row + 1][index]
+    right_path = triangle[current_row + 1][index + 1]
+    max_path = [left_path, right_path].max
 
-rows_count.downto(0) do |row_number|
-  row_cache[row_number].length.times do |row_order|
-    left = row_cache[row_number+1][row_order]
-    right = row_cache[row_number+1][row_order+1]
-    row_cache[row_number][row_order] += [left, right].max
+    # Add the maximum path value to the current number
+    triangle[current_row][index] += max_path
   end
 end
 
-puts row_cache.first
+# The maximum total is now at the top of the triangle
+maximum_total = triangle[0][0]
+
+puts "The maximum total from top to bottom of the triangle is: #{maximum_total}"
