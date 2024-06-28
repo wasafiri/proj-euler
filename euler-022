@@ -1,0 +1,14 @@
+# Read and prepare names
+names = File.read('p022_names.txt').gsub('"', '').split(',').sort
+
+# Calculate name score
+def name_score(name, position)
+  name.chars.sum { |char| char.ord - 64 } * position
+end
+
+# Calculate total score
+total_score = names.each_with_index.sum do |name, index|
+  name_score(name, index + 1)
+end
+
+puts "Total of all name scores: #{total_score}"
