@@ -1,0 +1,32 @@
+def sum_of_proper_divisors(number)
+  divisors = [1]
+  (2..Math.sqrt(number)).each do |i|
+    if number % i == 0
+      divisors << i
+      divisors << number / i unless i == number / i
+    end
+  end
+  divisors.sum
+end
+
+def is_abundant?(number)
+  sum_of_proper_divisors(number) > number
+end
+
+limit = 28123
+abundant_numbers = (1..limit).select { |num| is_abundant?(num) }
+
+sums_of_two_abundants = Set.new
+abundant_numbers.each do |a|
+  abundant_numbers.each do |b|
+    sum = a + b
+    break if sum > limit
+    sums_of_two_abundants.add(sum)
+  end
+end
+
+non_abundant_sums = (1..limit).reject { |num| sums_of_two_abundants.include?(num) }
+
+total_sum = non_abundant_sums.sum
+
+puts "Sum of all numbers that cannot be written as the sum of two abundant numbers: #{total_sum}"
