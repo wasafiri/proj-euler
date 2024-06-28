@@ -1,0 +1,19 @@
+def find_first_fibonacci_with_digits(num_digits)
+  first = 1
+  second = 1
+  index = 2
+
+  while second.to_s.length < num_digits
+    first, second = second, first + second
+    index += 1
+  end
+
+  index
+end
+
+target_digits = 1000
+
+# Find the index of the first Fibonacci number with 1000 digits
+result = find_first_fibonacci_with_digits(target_digits)
+
+puts "The index of the first Fibonacci number with #{target_digits} digits is: #{result}"
