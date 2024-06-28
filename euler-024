@@ -1,0 +1,29 @@
+def generate_permutation(digits, target_position)
+  remaining_digits = digits.clone
+  current_position = 0
+  result = []
+
+  (digits.length).downto(1) do |n|
+    # Calculate the number of permutations for the remaining (n-1) digits
+    factorial = (1..n-1).reduce(1, :*)
+    index = 0
+
+    # Find the correct digit for the current position in the result
+    while current_position + factorial < target_position
+      current_position += factorial
+      index += 1
+    end
+
+    result << remaining_digits.delete_at(index)
+  end
+
+  result.join
+end
+
+digits = (0..9).to_a
+target_position = 1_000_000
+
+# Generate the millionth permutation without creating all permutations
+millionth_permutation = generate_permutation(digits, target_position)
+
+puts "The millionth lexicographic permutation of 0-9 is: #{millionth_permutation}"
